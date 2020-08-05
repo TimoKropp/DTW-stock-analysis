@@ -8,3 +8,4 @@ statistics
 sklearn
 fastdtw 
 ipyprogressbar
+ipyparallel
