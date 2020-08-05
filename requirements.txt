@@ -1,9 +1,9 @@
 pandas
 numpy
 yfinance
-matplotlib.pyplot 
+matplotlib
 datetime 
 scipy 
 statistics
 sklearn
-fastdtw imp
+fastdtw 
