@@ -7,7 +7,7 @@ from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
 
 # data import and settings
-stockstring ='NDAQ'                 # choose a stock symbol from yahoo finance to analyze
+stockstring = 'NDAQ'                 # choose a stock symbol from yahoo finance to analyze
 period_size = 60                    # days for correlation period
 start_date  = datetime(2019, 1, 1)  # date in the past as start_date for analysis, datetime(year, month, day)
 end_date    = datetime.today()      # end date for analysis, present date
@@ -51,17 +51,17 @@ for time_step in range(0, total_data_len - ref_data_len):
     correlations[time_step, 1]  =  distance
 
 # the minimum of the calculated transformation distance has the best correlation towards the correlation period
-index_min = np.argmin(correlations[0:total_data_len-ref_data_len * excl_fact, 1])
+index_min = np.argmin(correlations[0 : total_data_len - ref_data_len * excl_fact, 1])
 bestfit_date =df['date'][index_min]
 
 # could be used for prognoses but is not fully implemented
 if prognoses:
     prog_past_start_date = bestfit_date +  timedelta(days = correlation_ref_interval)
     prog_past_end_date = prog_past_start_date +  timedelta(days = correlation_ref_interval)
-    prog_past_data_date_list = pd.date_range(prog_past_start_date, periods=ref_data_len, freq='B')
+    prog_past_data_date_list = pd.date_range(prog_past_start_date, periods = ref_data_len, freq = 'B')
     prog_past_data_df = df.loc[df['date'].between(prog_past_start_date, prog_past_end_date, inclusive = True)]
     prog_present_end_date = datetime.today() +  timedelta(days = correlation_ref_interval)
-    prog_present_date_list_df = pd.date_range(datetime.today(), periods = ref_data_len, freq='B').to_frame()
+    prog_present_date_list_df = pd.date_range(datetime.today(), periods = ref_data_len, freq = 'B').to_frame()
 
     total_data.head()
     ticker = yf.Ticker(stockstring)
@@ -71,7 +71,7 @@ if prognoses:
 fig, axs = plt.subplots(2)
 axs[1].plot(df['date'],df[0])
 axs[1].axvspan(correlation_ref_start, correlation_ref_end, alpha = 0.5, color = 'green')
-axs[1].axvspan(bestfit_date, bestfit_date+timedelta(days = correlation_ref_interval), alpha = 0.2, color = 'green')
+axs[1].axvspan(bestfit_date, bestfit_date + timedelta(days = correlation_ref_interval), alpha = 0.2, color = 'green')
 axs[0].plot(df['date'],correlations[:,1])
 
 if prognoses:
