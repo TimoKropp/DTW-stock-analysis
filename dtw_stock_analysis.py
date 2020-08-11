@@ -22,7 +22,7 @@ prognoses = False
 total_data = yf.download(stockstring, start = start_date, end = end_date, progress = False)
 
 # set up for correlation  reference interval
-correlation_ref_end = datetime.today() # end correlation date, typically present dat
+correlation_ref_end = datetime.today() # end correlation date, typically present date
 correlation_ref_interval = period_size   # days counted back from correlation end date, size of correlation period
 correlation_ref_start =  correlation_ref_end - timedelta(days = correlation_ref_interval)
 correlation_prog_end =  correlation_ref_end + timedelta(days = correlation_ref_interval)
