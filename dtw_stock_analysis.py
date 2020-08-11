@@ -7,7 +7,7 @@ from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
 
 # data import and settings
-stockstring ='NDAQ'                 # chose a stock symbol from yahoo finance to analyze
+stockstring ='NDAQ'                 # choose a stock symbol from yahoo finance to analyze
 period_size = 60                    # days for correlation period
 start_date  = datetime(2019, 1, 1)  # date in the past as start_date for analysis, datetime(year, month, day)
 end_date    = datetime.today()      # end date for analysis, present date
@@ -45,7 +45,7 @@ correlations = np.zeros((total_data_len,2))
 # and the correlation period
 # iterate over all possible start dates of the reference period and calculate the transformation distance
 for time_step in range(0, total_data_len - ref_data_len):
-    correlation_data = total_data_list[time_step:time_step+ref_data_len]
+    correlation_data = total_data_list[time_step : time_step + ref_data_len]
     distance, path = fastdtw(correlation_data, ref_data, dist = euclidean)
     correlations[time_step, 0]  =  time_step
     correlations[time_step, 1]  =  distance
@@ -70,8 +70,8 @@ if prognoses:
 # Data visualisation
 fig, axs = plt.subplots(2)
 axs[1].plot(df['date'],df[0])
-axs[1].axvspan(correlation_ref_start, correlation_ref_end, alpha=0.5, color='green')
-axs[1].axvspan(bestfit_date, bestfit_date+timedelta(days=correlation_ref_interval), alpha=0.2, color='green')
+axs[1].axvspan(correlation_ref_start, correlation_ref_end, alpha = 0.5, color = 'green')
+axs[1].axvspan(bestfit_date, bestfit_date+timedelta(days = correlation_ref_interval), alpha = 0.2, color = 'green')
 axs[0].plot(df['date'],correlations[:,1])
 
 if prognoses:
@@ -81,9 +81,9 @@ if prognoses:
 axs[0].tick_params(axis='both', which='both', labelsize=7)
 axs[1].tick_params(axis='both', which='both', labelsize=7)
 
-plt.setp(axs[1], xlabel='Date')
-plt.setp(axs[0], ylabel='Transformation Distance')
-plt.setp(axs[1], ylabel='NDAQ [USD]')
+plt.setp(axs[1], xlabel = 'Date')
+plt.setp(axs[0], ylabel = 'Transformation Distance')
+plt.setp(axs[1], ylabel = 'NDAQ [USD]')
 
 # set ticks visible, if using sharex = True. Not needed otherwise
 for tick in axs[0].get_xticklabels():
