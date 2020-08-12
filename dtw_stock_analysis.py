@@ -83,7 +83,7 @@ axs[1].tick_params(axis='both', which='both', labelsize=7)
 
 plt.setp(axs[1], xlabel = 'Date')
 plt.setp(axs[0], ylabel = 'Transformation Distance')
-plt.setp(axs[1], ylabel = 'NDAQ [USD]')
+plt.setp(axs[1], ylabel = stockstring + ' [USD]')
 
 # set ticks visible, if using sharex = True. Not needed otherwise
 for tick in axs[0].get_xticklabels():
